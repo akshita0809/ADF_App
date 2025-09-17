@@ -1,0 +1,13 @@
+name: 'ADF POC'
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  ADF-Deploy:
+    uses: akshita0809/ADF_Global_Template/.github/workflows/template.yml@main
+    secrets: inherit
+    with:
+      parametername: "ArmTemplate/ARMTemplateParametersForFactory.json"
+
+  

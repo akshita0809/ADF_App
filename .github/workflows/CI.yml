@@ -1,0 +1,73 @@
+name: Deploy to UAT
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+ 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install NPM Package
+      working-directory: ${{GITHUB.WORKSPACE}}
+      run: npm install 
+
+    - name: NPM Build
+      working-directory: ${{ GITHUB.WORKSPACE }}
+      run: npm run build validate ${{GITHUB.WORKSPACE}} /subscriptions/0e3da59a-a426-40e4-8322-298d228d377d/resourceGroups/akshita/providers/Microsoft.DataFactory/factories/ATCOTESTADF
+    - name: NPM Export
+      working-directory: ${{ GITHUB.WORKSPACE }}
+      run: npm run build export ${{GITHUB.WORKSPACE}} /subscriptions/0e3da59a-a426-40e4-8322-298d228d377d/resourceGroups/akshita/providers/Microsoft.DataFactory/factories/ATCOTESTADF "ArmTemplate"
+
+    - name: Publish ARM template
+      uses: actions/upload-artifact@v4.6.0
+      with:
+        name: adf-armtemplate
+        path: ${{ GITHUB.WORKSPACE }}/ArmTemplate
+        if-no-files-found: error
+
+  # deploy:
+  #   needs: build 
+  #   runs-on:
+  #     group: Non-Prod
+  #     labels: [self-hosted]
+  #   name: 'This deploys to UAT'
+  #   environment: UAT
+  #   steps:
+  #   - name: Download a Build Artifact
+  #     uses: actions/download-artifact@v4.1.8
+
+  #   - name: Azure login
+  #     uses: azure/login@v2
+  #     with:
+  #       auth-type: IDENTITY
+  #       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+  #       subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  #       enable-AzPSSession: true
+
+  #   - name: Pre-deployment
+  #     uses: Azure/powershell@v1
+  #     with:
+  #       inlineScript: pwsh -File ./ArmTemplate/PrePostDeploymentScript.ps1 -armTemplate "./ArmTemplate/ARMTemplateForFactory.json" -ResourceGroupName RG-Analytics-Rumi-NonProd -DataFactoryName DF-Rumi-Tst -predeployment:$true -deleteDeployment:$false
+  #       azPSVersion: latest
+
+  #   - name: Deploy Azure Resource Manager (ARM) Template
+  #     uses: Azure/arm-deploy@v1.0.6
+  #     with:
+  #       scope: 'resourcegroup'
+  #       resourceGroupName: 'RG-Analytics-Rumi-NonProd'
+  #       template: ${{ GITHUB.WORKSPACE }}/ArmTemplate/ARMTemplateForFactory.json
+  #       deploymentMode: Incremental
+  #       parameters: factoryName=DF-Rumi-Tst 
+
+  #   - name: Post-deployment
+  #     uses: Azure/powershell@v1
+  #     with:
+  #       inlineScript: pwsh -File ./ArmTemplate/PrePostDeploymentScript.ps1 -armTemplate "./ArmTemplate/ARMTemplateForFactory.json" -ResourceGroupName RG-Analytics-Rumi-NonProd -DataFactoryName DF-Rumi-Tst -predeployment:$false -deleteDeployment:$true
+  #       azPSVersion: latest
