@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ATCOTestADF01"
 		},
+		"pipeline1_properties_0_typeProperties_waitTimeInSeconds": {
+			"type": "int",
+			"defaultValue": 1
+		},
 		"testpipe_properties_0_typeProperties_waitTimeInSeconds": {
 			"type": "int",
 			"defaultValue": 1
@@ -37,6 +41,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"pipeline1_properties_0_typeProperties_waitTimeInSeconds": {
+						"value": "[parameters('pipeline1_properties_0_typeProperties_waitTimeInSeconds')]"
 					},
 					"testpipe_properties_0_typeProperties_waitTimeInSeconds": {
 						"value": "[parameters('testpipe_properties_0_typeProperties_waitTimeInSeconds')]"

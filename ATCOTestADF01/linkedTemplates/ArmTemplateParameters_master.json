@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "ATCOTestADF01"
 		},
+		"pipeline1_properties_0_typeProperties_waitTimeInSeconds": {
+			"value": 1
+		},
 		"testpipe_properties_0_typeProperties_waitTimeInSeconds": {
 			"value": 1
 		},
