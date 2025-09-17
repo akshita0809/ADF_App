@@ -1,3 +1,1 @@
 factoryName=ATCOTestADF01
-pipeline1_properties_0_typeProperties_waitTimeInSeconds=100
-testpipe_properties_0_typeProperties_waitTimeInSeconds=1000
