@@ -9,6 +9,7 @@ jobs:
     secrets: inherit
     with:
       parametername: "ArmTemplate/ARMTemplateParametersForFactory.json"
+      environment: Dev
       TENANT_ID: ${{ secrets.TENANT_ID }}
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       SUBS_ID: ${{ secrets.SUBS_ID }}
