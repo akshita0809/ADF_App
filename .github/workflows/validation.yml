@@ -47,16 +47,16 @@ jobs:
         run: npm install
 
       - name: Validate
-        run: npm run build validate $(pwd) /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/Akshita/providers/Microsoft.DataFactory/factories/ATCOTestADF01
+        run: npm run build validate $(pwd) /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }}
         
       - name: Generate ARM Template
-        run: npm run build export $(pwd) /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/Akshita/providers/Microsoft.DataFactory/factories/ATCOTestADF01 "ArmTemplate"
+        run: npm run build export $(pwd) /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }} "ArmTemplate"
       
-      - name: List files in current directory
+      - name: List files in ArmTemplate directory
         run: ls -R ArmTemplate/
         
-      - name: List the updated parameters
+      - name: List the contents of ARMTemplateParametersForFactory.json
         run: cat ArmTemplate/ARMTemplateParametersForFactory.json
 
-      - name: Display contents of parameters.updated.json
+      - name: Delete ARMTemplate
         run: rm -rf ArmTemplate
