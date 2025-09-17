@@ -2,7 +2,9 @@ name: 'ADF POC'
 
 on:
   workflow_dispatch: 
-
+permissions:
+  id-token: write
+  contents: read 
 jobs:
   ADF-Deploy:
     uses: akshita0809/ADF_Global_Template/.github/workflows/template.yml@main
