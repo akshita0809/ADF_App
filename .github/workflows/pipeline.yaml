@@ -10,10 +10,10 @@ jobs:
     with:
       parametername: "ArmTemplate/ARMTemplateParametersForFactory.json"
       environment: Dev
-      TENANT_ID: ${{ secrets.TENANT_ID }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      SUBS_ID: ${{ secrets.SUBS_ID }}
-      RG: ${{ secrets.RG }}
-      ADF_Name: ${{ secrets.ADF_Name }}
+      # TENANT_ID: ${{ secrets.TENANT_ID }}
+      # CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      # SUBS_ID: ${{ secrets.SUBS_ID }}
+      # RG: ${{ secrets.RG }}
+      # ADF_Name: ${{ secrets.ADF_Name }}
 
   
