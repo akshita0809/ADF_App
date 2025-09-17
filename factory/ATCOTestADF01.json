@@ -1,0 +1,9 @@
+{
+	"name": "ATCOTestADF01",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "99e37c91-b765-46c4-9421-76387729f576",
+		"tenantId": "d18895cc-999c-43f0-acda-6b008393110a"
+	}
+}
